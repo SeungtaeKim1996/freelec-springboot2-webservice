@@ -1,0 +1,35 @@
+buildscript {
+    //ext:  build.gradle 에서 사용하는 전역변수를 설정하겠다는 의미인데,
+    //      여기서는 springBootVersion 전역변수를 생성하고 그 값을 '2.1.7.RELEASE' 로 하겠다는 의미
+    //      즉, spring-boot-gradle-plugin 라는 스프링 부트 그레이들 플러그인의 2.1.7.RELEASE 를 의존성으로 받겠다는 의미
+    ext {
+        springBootVersion = '2.1.7.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group 'com.jojoldu.book'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    //  compile()과 testCompile()은 gradle version 7에서 deprecated 되어 사용 불가하므로
+    //  대신 implementation(), testImplementation() 사용
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+}
